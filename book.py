@@ -8,7 +8,6 @@ import argparse
 def log_in(driver, username: str, password: str):
     print("Logger inn ...")
     driver.get("https://www.sit.no")
-    sleep(2)
     login_link = driver.find_element_by_link_text("Logg inn")
     login_link.click()
     login_feide = driver.find_element_by_link_text("Logg inn med Feide")
@@ -27,6 +26,8 @@ def log_in(driver, username: str, password: str):
     password_input.send_keys(password)
     login_button = driver.find_element_by_xpath("//*[@id=\"main\"]/div[1]/form/button")
     login_button.click()
+
+    driver.find_element_by_link_text("Min side")  # Enkel måte å vente på redirect etter innlogging.
     print("Innlogging vellykket!")
 
 
@@ -96,6 +97,5 @@ if __name__ == '__main__':
     driver = webdriver.Firefox()
     driver.implicitly_wait(10)
     log_in(driver, args.brukernavn, args.passord)
-    sleep(10)
     book_slot(driver, args.tid, args.dager, args.senter)
     driver.quit()
