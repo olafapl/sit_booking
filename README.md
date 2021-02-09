@@ -2,6 +2,11 @@
 
 Python-script for å booke time på Sit-treningssentre.
 
+## Krav
+
+- Alle greier i `requirements.txt`
+- Firefox-driver for Selenium
+
 ## Bruk
 
 ```sh
