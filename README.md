@@ -34,3 +34,7 @@ Booke time på Gløshaugen treningssenter kl. 07:30 om én dag (i morgen):
 ```sh
 python book.py brukernavn passord --senter gløshaugen --tid 0730 --dager 1
 ```
+
+## Lisens
+
+[MIT](LICENSE).
