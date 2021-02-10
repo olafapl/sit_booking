@@ -35,16 +35,16 @@ facility_checkboxes = {
 
 
 def book_slot(driver, start: str, days: int, facility: str, max_tries=2):
-    print(f"Prøver å booke treningstime {start} om {days} dag(er) ...")
+    print(f"Booker egentreningstime {start[:2]}:{start[2:]} på {facility.capitalize()} om {days} dag(er) ...")
     now = datetime.now()
     training_start = (now + timedelta(days=days)).replace(
-        hour=int(start[:2]), minute=int(start[2:]))
+        hour=int(start[:2]), minute=int(start[2:]), second=0, microsecond=0)
     delta = training_start - now
 
     if delta >= timedelta(days=2):
         opens_in = delta - timedelta(days=2)
-        print(f"Booking åpner om {opens_in}. Går i dvale ...")
-        sleep(opens_in.seconds)
+        print(f"Booking åpner om {str(opens_in).split('.')[0]}. Går i dvale ...")
+        sleep(opens_in.total_seconds())
     
     current_try = 1
     while current_try <= max_tries:
