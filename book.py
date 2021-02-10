@@ -94,7 +94,9 @@ if __name__ == '__main__':
     parser.add_argument("--dager", type=int, default=0, help="antall dager frem i tid det skal bookes")
     args = parser.parse_args()
 
-    driver = webdriver.Firefox()
+    options = webdriver.ChromeOptions()
+    options.headless = True
+    driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     log_in(driver, args.brukernavn, args.passord)
     book_slot(driver, args.tid, args.dager, args.senter)

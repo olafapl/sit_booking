@@ -5,11 +5,11 @@ Python-script for å booke time på Sit-treningssentre.
 ## Krav
 
 - Alle greier i `requirements.txt`
-- Firefox-driver for Selenium
+- Chrome-driver for Selenium
 
 ## Bruk
 
-```sh
+```
 usage: book.py [-h] [--senter {gløshaugen,dragvoll,portalen,moholt}] --tid
                hhmm [--dager DAGER]
                brukernavn passord
