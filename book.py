@@ -89,14 +89,14 @@ def book_slot(driver, start: str, days: int, facility: str, max_tries=2):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Book treningstid hos Sit")
+    parser = argparse.ArgumentParser(description="Book egentreningstid hos Sit.")
     parser.add_argument("brukernavn", type=str, help="Feide-brukernavn")
     parser.add_argument("passord", type=str, help="Feide-passord")
+    parser.add_argument("--tid", type=str, metavar="hhmm", help="starttid (eksempel: 0730)", required=True)
+    parser.add_argument("--dager", type=int, default=2, help="antall dager frem i tid det skal bookes (default: 2)")
+    parser.add_argument("--max-forsøk", type=int, default=2, help="maks. antall forsøk på å booke (default: 2)")
     parser.add_argument("--senter", type=str, default="gløshaugen", choices=facility_checkboxes.keys(),
-                        help="treningssenter")
-    parser.add_argument("--tid", type=str, metavar="hhmm", help="starttid",
-                        required=True)
-    parser.add_argument("--dager", type=int, default=0, help="antall dager frem i tid det skal bookes")
+                        help="treningssenter (default: gløshaugen)")
     args = parser.parse_args()
 
     options = webdriver.ChromeOptions()
@@ -104,5 +104,5 @@ if __name__ == '__main__':
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(10)
     log_in(driver, args.brukernavn, args.passord)
-    book_slot(driver, args.tid, args.dager, args.senter)
+    book_slot(driver, args.tid, args.dager, args.senter, args.max_forsøk)
     driver.quit()
