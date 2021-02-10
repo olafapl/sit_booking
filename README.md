@@ -34,10 +34,16 @@ optional arguments:
 
 ### Eksempel
 
-Booke time på Gløshaugen treningssenter kl. 07:30 om én dag (i morgen):
-```sh
-python book.py brukernavn passord --tid 0730 --dager 1 --senter gløshaugen
+Booke time på Gløshaugen treningssenter kl. 15:30 om to dager:
 ```
+$ python book.py brukernavn passord --tid 1530 --dager 2 --senter gløshaugen
+Logger inn ...
+Innlogging vellykket!
+Booker egentreningstime 15:30 på Gløshaugen om 2 dag(er) ...
+Booking åpner om 0:15:11. Går i dvale ...
+Booking vellykket!
+```
+
 
 ## Lisens
 
