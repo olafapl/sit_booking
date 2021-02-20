@@ -12,6 +12,7 @@ Python-script for å booke egentrening på Sit-treningssentre.
 ```
 usage: book.py [-h] --time hhmm [--days DAYS]
                [--studio {gløshaugen,dragvoll,portalen,dmmh,moholt}]
+               [--max-tries MAX_TRIES]
                username password
 
 Book training slots (egentrening) at Sit.
@@ -27,6 +28,8 @@ optional arguments:
                         (default: 2)
   --studio {gløshaugen,dragvoll,portalen,dmmh,moholt}
                         studio (default: gløshaugen)
+  --max-tries MAX_TRIES
+                        max number of tries (default: 2)
 ```
 
 ### Eksempel
