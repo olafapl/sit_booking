@@ -5,45 +5,36 @@ Python-script for å booke egentrening på Sit-treningssentre.
 ## Krav
 
 - Python 3
-- Selenium
-- Google Chrome
-- Chrome-driver for Selenium
+- Se [`requirements.txt`](requirements.txt)
 
 ## Bruk
 
 ```
-usage: book.py [-h] --tid hhmm [--dager DAGER] [--max-forsøk MAX_FORSØK]
-               [--senter {gløshaugen,dragvoll,portalen,moholt}]
-               brukernavn passord
+usage: book.py [-h] --time hhmm [--days DAYS]
+               [--studio {gløshaugen,dragvoll,portalen,dmmh,moholt}]
+               username password
 
-Book egentreningstid hos Sit.
+Book training slots (egentrening) at Sit.
 
 positional arguments:
-  brukernavn            Feide-brukernavn
-  passord               Feide-passord
+  username              Sit username (email)
+  password              Sit password
 
 optional arguments:
   -h, --help            show this help message and exit
-  --tid hhmm            starttid (eksempel: 0730)
-  --dager DAGER         antall dager frem i tid det skal bookes (default: 2)
-  --max-forsøk MAX_FORSØK
-                        Maks. antall forsøk på å booke (default: 2)
-  --senter {gløshaugen,dragvoll,portalen,moholt}
-                        treningssenter (default: gløshaugen)
+  --time hhmm           start time (example: 0730) (default: None)
+  --days DAYS           number of days until training slot (0 is today)
+                        (default: 2)
+  --studio {gløshaugen,dragvoll,portalen,dmmh,moholt}
+                        studio (default: gløshaugen)
 ```
 
 ### Eksempel
 
 Booke time på Gløshaugen treningssenter kl. 15:30 om to dager:
 ```
-$ python book.py brukernavn passord --tid 1530 --dager 2 --senter gløshaugen
-Logger inn ...
-Innlogging vellykket!
-Booker egentreningstime 15:30 på Gløshaugen om 2 dag(er) ...
-Booking åpner om 0:15:11. Går i dvale ...
-Booking vellykket!
+$ python book.py per@example.com passord123 --time 1530 --days 2 --studio gløshaugen
 ```
-
 
 ## Lisens
 
