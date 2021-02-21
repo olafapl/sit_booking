@@ -47,8 +47,7 @@ def add_booking(session: HTMLSession, token: str, class_id: int) -> None:
 
 
 def book(session: HTMLSession, start: str, days: int, studio: str) -> bool:
-    now = datetime.now()
-    training_start = (now + timedelta(days=days)).replace(
+    training_start = (datetime.now() + timedelta(days=days)).replace(
         hour=int(start[:2]), minute=int(start[2:]), second=0, microsecond=0)
 
     token = get_token(session)
@@ -70,7 +69,7 @@ def book(session: HTMLSession, start: str, days: int, studio: str) -> bool:
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Book training slots (egentrening) at Sit.",
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("username", type=str, help="Sit username (email)")
