@@ -34,31 +34,26 @@ def get_token(session: HTMLSession) -> str:
 
 
 def get_schedule(session: HTMLSession, studio: int, token: str) -> dict:
-    params = {"studios": studio, "token": token}
     response = session.get(
-        "https://ibooking.sit.no/webapp/api/Schedule/getSchedule", params=params
+        "https://ibooking.sit.no/webapp/api/Schedule/getSchedule",
+        params={"studios": studio, "token": token},
     )
     response.raise_for_status()
     return response.json()
 
 
 def add_booking(session: HTMLSession, token: str, class_id: int) -> None:
-    data = {"classId": class_id, "token": token}
     session.post(
-        "https://ibooking.sit.no/webapp/api/Schedule/addBooking", data=data
+        "https://ibooking.sit.no/webapp/api/Schedule/addBooking",
+        data={"classId": class_id, "token": token},
     ).raise_for_status()
 
 
-def book(session: HTMLSession, start: str, days: int, studio: str) -> bool:
-    training_start = (datetime.now() + timedelta(days=days)).replace(
-        hour=int(start[:2]), minute=int(start[2:]), second=0, microsecond=0
-    )
-
+def book(session: HTMLSession, training_start: datetime, studio: int) -> bool:
     token = get_token(session)
-    schedule = get_schedule(session, STUDIOS[studio], token)
-    current_date = datetime.now().date()
+    schedule = get_schedule(session, studio, token)
     for day in schedule["days"]:
-        if (current_date + timedelta(days=days)) == parse_datetime(day["date"]).date():
+        if parse_datetime(day["date"]).date() == training_start.date():
             for training_class in day["classes"]:
                 if (
                     training_class["activityId"] == ACTIVITIES["egentrening"]
@@ -106,13 +101,17 @@ if __name__ == "__main__":
     parser.add_argument("--max-tries", type=int, default=2, help="max number of tries")
     args = parser.parse_args()
 
+    training_start = (datetime.now() + timedelta(days=args.days)).replace(
+        hour=int(args.time[:2]), minute=int(args.time[2:]), second=0, microsecond=0
+    )
+
     success = False
     current_try = 1
     while current_try <= args.max_tries:
         session = HTMLSession()
         try:
             log_in(session, args.username, args.password)
-            success = book(session, args.time, args.days, args.studio)
+            success = book(session, training_start, STUDIOS[args.studio])
             print(
                 "Slot booked!"
                 if success
