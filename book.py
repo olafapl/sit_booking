@@ -27,7 +27,7 @@ def log_in(session: HTMLSession, username: str, password: str) -> None:
 
 
 def get_token(session: HTMLSession) -> str:
-    response = session.get("https://www.sit.no/trening/treneselv")
+    response = session.get("https://www.sit.no/trening/gruppe")
     response.raise_for_status()
     ibooking_src = response.html.find("#ibooking-iframe", first=True).attrs["src"]
     return parse_qs(urlparse(ibooking_src).query)["token"][0]
